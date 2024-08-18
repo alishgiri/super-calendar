@@ -2,7 +2,7 @@
 	import SuperCalendarLogo from '$lib/icons/super-calendar-logo.svelte';
 </script>
 
-<nav class="flex flex-row items-center p-3 py-5">
+<nav class="flex flex-row items-center px-4 py-5">
 	<a href="/" class="flex flex-row">
 		<SuperCalendarLogo />
 		<p class="ml-2 text-2xl font-black tracking-wider text-app-dark">Super Calendar</p>
