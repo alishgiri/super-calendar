@@ -1,1 +1,13 @@
-{}
+{
+    "home": "Home",
+    "close": "Close",
+    "today": "Today",
+    "list": "List",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "timeline": "Timeline",
+    "resources": "Resources",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+}
