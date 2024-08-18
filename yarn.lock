@@ -291,6 +291,45 @@
   resolved "https://registry.yarnpkg.com/@eslint/object-schema/-/object-schema-2.1.4.tgz#9e69f8bb4031e11df79e03db09f9dbbae1740843"
   integrity sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==
 
+"@event-calendar/core@^3.4.0", "@event-calendar/core@~3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@event-calendar/core/-/core-3.4.0.tgz#03df4b3192603441887cb90b9b9555e63775feae"
+  integrity sha512-b7Kx214hRs6MNfRbnN/L29kgWsBI+Zv2KrU0Gp0H/alqN9yJR+6YNaqcaAo3NV4DiCo+9moBOlZ4KbbpZhnulQ==
+  dependencies:
+    svelte "^4.2.16"
+
+"@event-calendar/day-grid@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@event-calendar/day-grid/-/day-grid-3.4.0.tgz#590e6991841b00a7598e3cc978b6e6fbb08f5725"
+  integrity sha512-BlZLM4fiqb4kPtis4tX5jg8XcbhmIOesgc8qhUjooEmWcPc8GZvW4Ob0UYt0Js/HjX+u4IvNdVUsNDzJe8o2Dw==
+  dependencies:
+    "@event-calendar/core" "~3.4.0"
+    svelte "^4.2.16"
+
+"@event-calendar/interaction@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@event-calendar/interaction/-/interaction-3.4.0.tgz#cbda1ef10aabdafcbf29aaad40bdc017c4cd2018"
+  integrity sha512-cizgMNdaPbeONCoBeMODglzn2dH6lLhpoaCdU4uBb2EOafe3DdtiK5yj+G4QjLOz+GcB3BomT8lwgzCQaD9akg==
+  dependencies:
+    "@event-calendar/core" "~3.4.0"
+    svelte "^4.2.16"
+
+"@event-calendar/list@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@event-calendar/list/-/list-3.4.0.tgz#cada003d1612f6b28c0a4d1eb626d38ac68cbef0"
+  integrity sha512-e1WuxTKN5fkVVepFKGyIm9z4o92hx/mT/XZ9oqr8CvJlbTmnvrD9It0d9OsWnluMGB3nKyqcVknCIoL+TVlYzw==
+  dependencies:
+    "@event-calendar/core" "~3.4.0"
+    svelte "^4.2.16"
+
+"@event-calendar/time-grid@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@event-calendar/time-grid/-/time-grid-3.4.0.tgz#c3174482cc49c461c1f4a53617a12ed4508a9641"
+  integrity sha512-F/TOzLh25puKzRyRHohY7yVM3dlQXlMYNrCOLF6T8BALW9bT/YfQHkYuF5v3qXRVF7K/9yols3vdxC94Dgvfng==
+  dependencies:
+    "@event-calendar/core" "~3.4.0"
+    svelte "^4.2.16"
+
 "@formatjs/ecma402-abstract@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@formatjs/ecma402-abstract/-/ecma402-abstract-2.0.0.tgz#39197ab90b1c78b7342b129a56a7acdb8f512e17"
@@ -2322,7 +2361,7 @@ svelte-use-form@^2.10.0:
   resolved "https://registry.yarnpkg.com/svelte-use-form/-/svelte-use-form-2.10.0.tgz#fbcd8bf333ed4718d1ca93186b2a441d35dc3a5c"
   integrity sha512-RSYkfRCmJF+2dm4UzhCdORjwmAM+Vueg+Blqcui1It8wsicLnfpUgtXbHWw9NxhXB4cHz88EDK63cxqmamhEyA==
 
-svelte@^4.2.7:
+svelte@^4.2.16, svelte@^4.2.7:
   version "4.2.18"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-4.2.18.tgz#33dbce74e83eb6dcc54dbea25f9758b1d8e8bb78"
   integrity sha512-d0FdzYIiAePqRJEb90WlJDkjUEx42xhivxN8muUBmfZnP+tzUgz12DJ2hRJi8sIHCME7jeK1PTMgKPSfTd8JrA==

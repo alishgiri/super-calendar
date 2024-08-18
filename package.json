@@ -36,6 +36,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@event-calendar/core": "^3.4.0",
+		"@event-calendar/day-grid": "^3.4.0",
+		"@event-calendar/interaction": "^3.4.0",
+		"@event-calendar/list": "^3.4.0",
+		"@event-calendar/time-grid": "^3.4.0",
 		"svelte-i18n": "^4.0.0",
 		"svelte-use-form": "^2.10.0"
 	}
