@@ -18,7 +18,7 @@
 {#if show}
 	<div
 		data-testid="overlay-modal"
-		class={`absolute bottom-0 left-0 right-0 top-0 z-50 flex ${size === 'xl' ? '' : 'items-center justify-center'}`}
+		class={`absolute bottom-0 left-0 right-0 top-0 z-[99999] flex ${size === 'xl' ? '' : 'items-center justify-center'}`}
 	>
 		<button
 			on:click={onClose}
