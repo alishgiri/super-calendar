@@ -40,7 +40,7 @@
 	<div class="absolute bottom-10 right-10 z-50 flex flex-col" data-testid="notifier">
 		<div
 			id="notifier-div"
-			class="flex min-h-20 max-w-xl flex-row items-center rounded-lg border-l-8 bg-app-light p-3 pr-6 shadow-lg"
+			class="flex min-h-20 max-w-xl flex-row items-center rounded-lg border-l-8 bg-white p-3 pr-6 shadow-lg"
 		>
 			<div class="flex items-center justify-center">
 				{#if notifierData.type === 'success'}
@@ -51,13 +51,13 @@
 					<InfoSquareIcon />
 				{/if}
 			</div>
-			<p class="text-app-dark ml-2 text-sm">{notifierData.message}</p>
+			<p class="ml-2 text-sm text-black">{notifierData.message}</p>
 		</div>
 		<AppButton
 			iconColor="white"
 			onClick={onDismiss}
 			icon={RoundedCloseIcon}
-			className="absolute -right-1.5 -top-2.5 h-fit rounded-full bg-app-light !px-0 !py-0"
+			className="absolute -right-1.5 -top-2.5 h-fit rounded-full bg-app-dark !px-0 !py-0"
 		/>
 	</div>
 {/if}

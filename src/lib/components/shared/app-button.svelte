@@ -37,7 +37,7 @@
 	}
 
 	function onBg(): string {
-		if (isRed) return 'bg-app-red text-white';
+		if (isRed) return 'bg-app-error text-white';
 		if (isDark) return 'bg-app-primary text-white';
 		if (isLight) return 'bg-app-light text-app-primary';
 		if (outlined) return 'bg-transparent border-2 border-app-primary !text-app-primary';
@@ -71,7 +71,7 @@
 		</span>
 		{#if trailing}
 			{#if isLoading && useTrailingLoadingIndicator}
-				<SpinnerIcon className="" />
+				<SpinnerIcon dark />
 			{:else}
 				<svelte:component this={trailing} color={iconColor} size={iconSize} />
 			{/if}

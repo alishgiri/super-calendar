@@ -20,6 +20,5 @@
 
 	<ConfirmDialog />
 
-
 	<Footer />
 {/if}
