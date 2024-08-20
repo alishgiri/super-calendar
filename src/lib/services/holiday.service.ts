@@ -3,9 +3,10 @@ import dateTime from '$lib/utils/date-time';
 import type { CalendarEvent } from '$lib/models/calendar_event';
 
 async function fetchHolidays(date: Date): Promise<CalendarEvent[]> {
-	const locale = new Intl.Locale(navigator.language);
+	// const locale = new Intl.Locale(navigator.language);
 	const response = await API.post('/holidays', {
-		country: locale.region,
+		country: 'CA', // Free Version Supported Country.
+		// country: locale.region,
 		year: `${date.getFullYear()}`
 	});
 
