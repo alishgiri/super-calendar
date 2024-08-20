@@ -24,6 +24,7 @@
 		eventDragStop,
 		height: '88vh',
 		selectable: true,
+		allDaySlot: false,
 		dayMaxEvents: true,
 		nowIndicator: true,
 		view: 'timeGridWeek',
