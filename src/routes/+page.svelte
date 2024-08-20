@@ -6,16 +6,30 @@
 	import TimeGrid from '@event-calendar/time-grid';
 	import Interaction from '@event-calendar/interaction';
 
+	import { notifierStore } from '../stores/notifier.store';
+	import SpinnerIcon from '$lib/icons/spinner-icon.svelte';
+	import holidayService from '$lib/services/holiday.service';
+	import { eventFormStore } from '../stores/event-form.store';
+	import calEventService from '$lib/services/cal-event.service';
+	import type { CalendarEvent } from '$lib/models/calendar-event';
+	import EventFormOverlay from '$lib/components/home/event-form-overlay.svelte';
+
+	let ec;
+	let isLoading = false;
 	const plugins = [List, DayGrid, TimeGrid, TimeGrid, Interaction];
 	const options = {
+		loading,
+		dateClick,
+		eventClick,
+		eventDragStop,
 		height: '88vh',
 		selectable: true,
 		dayMaxEvents: true,
 		nowIndicator: true,
-		view: 'dayGridMonth',
+		view: 'timeGridWeek',
 		scrollTime: '09:00:00',
-		events: createEvents(),
-		dateClick: onDateClick,
+		select: onSelectDateRange,
+		eventSources: [{ events: fetchEvents }],
 		headerToolbar: {
 			center: 'title',
 			start: 'prev,next today',
@@ -33,104 +47,54 @@
 			listMonth: $_('list'),
 			timeGridDay: $_('day'),
 			timeGridWeek: $_('week'),
-			dayGridMonth: $_('month'),
-			resourceTimelineDay: $_('timeline'),
-			resourceTimeGridDay: $_('resources'),
-			resourceTimelineWeek: $_('timeline'),
-			resourceTimeGridWeek: $_('resources'),
-			resourceTimelineMonth: $_('timeline')
+			dayGridMonth: $_('month')
 		}
 	};
 
-	function createEvents() {
-		let days = [];
-		for (let i = 0; i < 7; ++i) {
-			let day = new Date();
-			let diff = i - day.getDay();
-			day.setDate(day.getDate() + diff);
-			days[i] = day.getFullYear() + '-' + _pad(day.getMonth() + 1) + '-' + _pad(day.getDate());
+	async function fetchEvents(): Promise<CalendarEvent[]> {
+		try {
+			const calEvents = await calEventService.getCalEvents();
+			const holidays = await holidayService.fetchHolidays(new Date());
+			return [...calEvents, ...holidays];
+		} catch (e) {
+			notifierStore.handleError(e);
 		}
-
-		return [
-			{ start: days[0] + ' 00:00', end: days[0] + ' 09:00', resourceId: 1, display: 'background' },
-			{ start: days[1] + ' 12:00', end: days[1] + ' 14:00', resourceId: 2, display: 'background' },
-			{ start: days[2] + ' 17:00', end: days[2] + ' 24:00', resourceId: 1, display: 'background' },
-			{
-				start: days[0] + ' 10:00',
-				end: days[0] + ' 14:00',
-				resourceId: 1,
-				title: 'The calendar can display background and regular events',
-				color: '#FE6B64'
-			},
-			{
-				start: days[1] + ' 16:00',
-				end: days[2] + ' 08:00',
-				resourceId: 2,
-				title: 'An event may span to another day',
-				color: '#B29DD9'
-			},
-			{
-				start: days[2] + ' 09:00',
-				end: days[2] + ' 13:00',
-				resourceId: 2,
-				title:
-					'Events can be assigned to resources and the calendar has the resources view built-in',
-				color: '#779ECB'
-			},
-			{
-				start: days[3] + ' 14:00',
-				end: days[3] + ' 20:00',
-				resourceId: 1,
-				title: '',
-				color: '#FE6B64'
-			},
-			{
-				start: days[3] + ' 15:00',
-				end: days[3] + ' 18:00',
-				resourceId: 1,
-				title: 'Overlapping events are positioned properly',
-				color: '#779ECB'
-			},
-			{
-				start: days[5] + ' 10:00',
-				end: days[5] + ' 16:00',
-				resourceId: 2,
-				title: { html: 'You have complete control over the <i><b>display</b></i> of events…' },
-				color: '#779ECB'
-			},
-			{
-				start: days[5] + ' 14:00',
-				end: days[5] + ' 19:00',
-				resourceId: 2,
-				title: '…and you can drag and drop the events!',
-				color: '#FE6B64'
-			},
-			{
-				start: days[5] + ' 18:00',
-				end: days[5] + ' 21:00',
-				resourceId: 2,
-				title: '',
-				color: '#B29DD9'
-			},
-			{
-				start: days[1],
-				end: days[3],
-				resourceId: 1,
-				title: 'All-day events can be displayed at the top',
-				color: '#B29DD9',
-				allDay: true
-			}
-		];
+		return [];
 	}
 
-	function onDateClick(date) {
-		alert(date.dateStr);
-		console.log(date);
+	function dateClick(info) {
+		eventFormStore.set({ startDate: info.dateStr, event: undefined });
 	}
 
-	function _pad(num: number) {
-		let norm = Math.floor(Math.abs(num));
-		return (norm < 10 ? '0' : '') + norm;
+	function eventDragStop(info) {}
+
+	function eventClick(info) {
+		const copy = { ...info.event };
+		eventFormStore.set({
+			endDate: copy.end,
+			startDate: copy.start,
+			event: copy as CalendarEvent
+		});
+	}
+
+	function onSelectDateRange(info) {
+		eventFormStore.set({ startDate: info.startStr, endDate: info.endStr, event: undefined });
+	}
+
+	function loading(isLoadingState: boolean) {
+		isLoading = isLoadingState;
+	}
+
+	function onEventCreated(calEvent: CalendarEvent) {
+		ec.addEvent(calEvent);
+	}
+
+	function onEventUpdated(calEvent: CalendarEvent) {
+		ec.updateEvent(calEvent);
+	}
+
+	function onEventDeleted(calEvent: CalendarEvent) {
+		ec.removeEventById(calEvent.id);
 	}
 </script>
 
@@ -139,5 +103,13 @@
 </svelte:head>
 
 <div class="mx-5">
-	<Calendar {plugins} {options} />
+	<Calendar bind:this={ec} {plugins} {options} />
 </div>
+
+{#if isLoading}
+	<div class="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center">
+		<SpinnerIcon dark />
+	</div>
+{/if}
+
+<EventFormOverlay {onEventCreated} {onEventUpdated} {onEventDeleted} />
