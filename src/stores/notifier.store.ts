@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { writable } from 'svelte/store';
 
 export interface NotifierData {
@@ -18,8 +19,10 @@ const createNotifierStore = () => {
 			};
 			if (typeof error === 'string') {
 				notifier.message = error;
+			} else if (error instanceof AxiosError) {
+				notifier.message = error.response?.data['message'] ?? error.message;
 			} else if (error instanceof Error) {
-				notifier.message = error.message.replace('[GraphQL] ', '');
+				notifier.message = error.message;
 			}
 			set(notifier);
 		},
